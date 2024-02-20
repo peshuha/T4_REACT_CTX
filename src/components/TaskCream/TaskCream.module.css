@@ -1,0 +1,8 @@
+.vanilla {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: lightslategray;
+    height: 3rem;
+    border: 1px solid chocolate;
+}

@@ -1,0 +1,8 @@
+.pizza {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #7a9977;
+    height: 3rem;
+    border: 1px solid #1e5dd2;
+}
