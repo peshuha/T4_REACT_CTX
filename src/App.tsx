@@ -33,8 +33,6 @@ export const TaskContext = createContext<TaskContextType | null>(null)
 let ctxTask = new Array<CTaskPizza | CTaskCream>()
 
 export default function App() {
-    const ctxUser = useUser();
-
     const taskAdd = (task: CTaskPizza | CTaskCream) => {
         console.log("taskAdd", task)
         ctxTask.push(task)
@@ -43,7 +41,7 @@ export default function App() {
     // ctxTask.push(new CTaskPizza("Пицца1"))
 
     return <>
-        <UserContext.Provider value={ctxUser}>
+        <UserContext.Provider value={useUser()}>
             <TaskContext.Provider value={{
                 tasks: ctxTask,
                 taskAdd
