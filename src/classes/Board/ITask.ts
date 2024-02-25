@@ -4,13 +4,23 @@ export enum TaskState {
     "process" ,
     "finish"
 }
-
+export interface IAdditions {
+  pizza: 'Перец',
+  cream: 'Ваниль'
+}
+export const additions = {
+  pizza: 'Перец',
+  cream: 'Ваниль'
+}
 export class CTask {
-    public Task: string
     public State: TaskState
-    constructor(task: string, state: TaskState = TaskState.order) {
-        this.Task = task
+    public addition: number
+    constructor(state: TaskState = TaskState.order, public type: keyof IAdditions) {
         this.State = state
+        this.addition = 0
+    }
+    public add(count: number): void {
+        this.addition += count
     }
 }
 

@@ -1,34 +1,42 @@
 import styles from "./board.module.css"
 import Header from "../../components/Header/Header.tsx";
 import {TaskContext} from "../../App.tsx";
-import {useContext} from "react";
-import {TaskCream} from "../../components/TaskCream/TaskCream.tsx";
-import {CTaskPizza, CTaskCream} from "../../classes/Board/ITask.ts";
-import {TaskPizza} from "../../components/TaskPizza/TaskPizza.tsx";
+import {useContext, useState} from "react";
+import {CTaskPizza, CTaskCream, TaskState} from "../../classes/Board/ITask.ts";
+import {Task} from "../../components/Task/Task.tsx";
 
 export default function Board() {
 
     const tasks = useContext(TaskContext)
-    console.log("Board", tasks)
+    const [tasksCream, setTasksCream] = useState<CTaskCream[]>([]);
+     const [tasksPizza, setTasksPizza] = useState<CTaskPizza[]>([]);
     return <>
-        <Header></Header>
+        <Header/>
         <div className={styles.container}>
-            <button onClick={()=>tasks?.taskAdd(new CTaskCream("Морожка"))}>Мороженка</button>
-            <button onClick={()=>tasks?.taskAdd(new CTaskCream("Пицца"))}>Пицца</button>
+            <button onClick={()=>
+              {
+                const task = new CTaskCream(TaskState.process, 'cream')
+                tasks?.taskAdd(task)
+                setTasksCream((state) => state?.concat(task))
+              }}>Мороженка</button>
+            <button onClick={()=>{
+              const task = new CTaskPizza(TaskState.process, 'pizza')
+              tasks?.taskAdd(task)
+              setTasksPizza((state) => state?.concat(task))
+              }}>Пицца</button>
         </div>
         {
-            tasks &&
-            tasks.tasks.map((t: CTaskCream | CTaskPizza, idx) => {
-                return <div key={idx}>
-                    {/*{*/}
-                    {/*    t.is_task_cream !== undefined && <TaskCream taskid={idx}></TaskCream>*/}
-                    {/*}*/}
-                    {
-                        t.is_task_pizza !== undefined && <TaskPizza task={t as CTaskPizza}></TaskPizza>
-                    }
-
-                </div>
+          tasksPizza.length &&
+          tasksPizza.map((t: CTaskPizza, idx) => {
+            return <div key={idx}>
+              {
+                <Task task={t as CTaskPizza}/>
+              }
+              </div>
             })
+        }
+        {
+          tasksCream.length && tasksCream.map((t, idx) => <div key={idx}><Task task={t}/></div>) 
         }
     </>
 }

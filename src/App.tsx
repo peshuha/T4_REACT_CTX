@@ -37,8 +37,6 @@ export default function App() {
         console.log("taskAdd", task)
         ctxTask.push(task)
     }
-    // ctxTask.push(new CTaskCream("Мороженка1"))
-    // ctxTask.push(new CTaskPizza("Пицца1"))
 
     return <>
         <UserContext.Provider value={useUser()}>
